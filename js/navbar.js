@@ -1,5 +1,5 @@
 import { auth } from "./firebase.js";
-import { signOut } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { signOut } from "firebase/auth";
 
 // Logout logic
 document.addEventListener("click", async (e) => {

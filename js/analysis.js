@@ -1,4 +1,7 @@
 import { getTxns } from "./storage.js";
+import { Chart, registerables } from 'chart.js';
+
+Chart.register(...registerables);
 
 const txns = getTxns() || [];
 
@@ -23,7 +26,7 @@ txns.forEach(t => {
 });
 
 const ieCtx = document.getElementById("incomeExpenseChart");
-if (ieCtx && typeof Chart !== 'undefined') {
+if (ieCtx) {
   new Chart(ieCtx, {
     type: "bar",
     data: {
@@ -43,7 +46,7 @@ if (ieCtx && typeof Chart !== 'undefined') {
 
 /* ========= CATEGORY PIE ========= */
 const catCtx = document.getElementById("categoryChart");
-if (catCtx && Object.keys(categoryMap).length > 0 && typeof Chart !== 'undefined') {
+if (catCtx && Object.keys(categoryMap).length > 0) {
   new Chart(catCtx, {
     type: "doughnut",
     data: {

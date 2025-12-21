@@ -1,6 +1,9 @@
 import { getTransactions } from "./db.js";
+import { Chart, registerables } from 'chart.js';
 
-// Render charts using global Chart (loaded via CDN in analysis.html)
+Chart.register(...registerables);
+
+// Render charts using Chart.js
 export function renderCharts() {
   const txs = getTransactions().filter(t => t.type === "expense");
 
