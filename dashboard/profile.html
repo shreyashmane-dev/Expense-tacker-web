@@ -244,6 +244,7 @@ a {
   }
 }
 </style>
+<script type="module" src="../js/auth-guard.js"></script>
 </head>
 <body class="fade-in">
 
@@ -272,8 +273,8 @@ a {
       <strong>Your SMS never leaves your device.</strong>
     </p>
 
-    <button id="requestSmsBtn" class="btn" style="margin-bottom: 12px;">
-      Enable SMS Tracking
+    <button id="requestSmsBtn" class="btn" style="margin-bottom: 12px; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; font-weight: bold;">
+      Grant SMS Permission
     </button>
 
     <label class="toggle">
@@ -285,7 +286,11 @@ a {
 
   <!-- Profile Card -->
   <div class="card">
-    <div style="text-align: center; margin-bottom: 24px;">
+    <div style="position: relative;">
+      <button id="logoutBtn" style="position: absolute; top: 0; right: 0; padding: 10px; background: rgba(239, 68, 68, 0.1); border-radius: 50%; border: none; cursor: pointer; color: #ef4444; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" title="Logout">
+        <span style="font-size: 18px;">🚪</span>
+      </button>
+      <div style="text-align: center; margin-bottom: 24px; padding-top: 10px;">
       <div style="width: 80px; height: 80px; background: var(--primary-gradient); border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; font-weight: bold;" id="profileAvatar">U</div>
       <h2 style="margin: 0;" id="displayName">Loading...</h2>
       <p style="color: var(--text-dim); margin: 4px 0;" id="displayEmail">loading@example.com</p>
@@ -330,7 +335,7 @@ a {
 <script type="module">
 import { auth, db } from "../js/firebase.js";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 // Custom profile logic (onAuthStateChanged handled by app.js guard, but we still need the data fetching)
 onAuthStateChanged(auth, async (user) => {
@@ -385,6 +390,17 @@ onAuthStateChanged(auth, async (user) => {
       alert("Failed to update profile.");
       btn.disabled = false;
       btn.textContent = "Save Profile Settings";
+    }
+  });
+
+  // Logout Logic
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+      window.location.href = "/auth/login.html";
+    } catch (error) {
+      console.error("Logout error:", error);
+      alert("Failed to logout: " + error.message);
     }
   });
 });

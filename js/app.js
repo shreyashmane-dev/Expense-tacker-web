@@ -7,19 +7,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { renderCharts } from "./charts.js";
 import { aiQuery } from "./ai-engine.js";
 
-// ---- AUTH GUARD ----
-const user = JSON.parse(localStorage.getItem("user"));
-
-const publicPages = ["login.html", "signup.html"];
-const currentPage = location.pathname.split("/").pop();
-
-if (!user && !publicPages.includes(currentPage)) {
-  location.href = "../auth/login.html";
-}
-
-if (user && publicPages.includes(currentPage)) {
-  location.href = "../dashboard/home.html";
-}
+// ---- AUTH GUARD (Delegated to firebase/auth in auth-guard.js) ----
+// Legacy check removed to prevent conflict with Firebase Auth
+console.log("App Controller Loaded");
 
 // ---- NAVBAR ACTIVE TAB (reliable across paths & Capacitor) ----
 function setActiveNavbar() {
@@ -53,27 +43,17 @@ if (window.Capacitor?.isNativePlatform && window.Capacitor.isNativePlatform()) {
    1. AUTH FLOW CONTROL
 -------------------------------- */
 
+/* -------------------------------
+   1. AUTH FLOW CONTROL
+-------------------------------- */
+
 onAuthStateChanged(auth, (user) => {
-  const path = window.location.pathname;
-
-  const isAuthPage =
-    path.includes("/auth/login.html") ||
-    path.includes("/auth/signup.html");
-
-  if (!user && !isAuthPage) {
-    // ❌ Not logged in → force login
-    window.location.replace("/auth/login.html");
-    return;
+  // Logic is now handled centrally in js/auth-guard.js
+  // We only initialize the dashboard here if authenticated.
+  
+  if (user) {
+    initDashboard();
   }
-
-  if (user && isAuthPage) {
-    // ✅ Logged in → skip login/signup
-    window.location.replace("/dashboard/home.html");
-    return;
-  }
-
-  // ✅ Logged in & dashboard page
-  if (user) initDashboard();
 });
 
 /* -------------------------------

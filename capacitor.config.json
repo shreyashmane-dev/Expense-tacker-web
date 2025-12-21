@@ -1,8 +1,7 @@
 {
-  "appId": "com.expense.app",
-  "appName": "payment tracker",
+  "appId": "com.example.expensemanager",
+  "appName": "expense-manager",
   "webDir": "dist",
-  "bundledWebRuntime": false,
   "server": {
     "androidScheme": "https"
   }

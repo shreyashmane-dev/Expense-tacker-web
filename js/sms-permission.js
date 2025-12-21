@@ -8,6 +8,7 @@ if (toggle) {
 }
 
 // Request SMS permissions (Android only)
+// Request SMS permissions (Android only)
 btn?.addEventListener("click", async () => {
   // Check if running in Capacitor (Android app)
   if (!window.Capacitor) {
@@ -15,22 +16,38 @@ btn?.addEventListener("click", async () => {
     return;
   }
 
-  try {
-    // Request SMS permissions via Capacitor
-    const result = await Capacitor.Plugins.Permissions.requestPermissions({
-      permissions: ["receiveSms", "readSms"]
-    });
+  const permissions = window.cordova?.plugins?.permissions;
+  if (!permissions) {
+    console.error("Cordova Permissions plugin not found");
+    alert("Permission plugin missing. Please rebuild app.");
+    return;
+  }
 
-    if (result.receiveSms === "granted" && result.readSms === "granted") {
-      localStorage.setItem("smsEnabled", "true");
-      if (toggle) toggle.checked = true;
-      alert("✅ SMS tracking enabled! Transactions will be added automatically.");
+  const list = [
+    permissions.RECEIVE_SMS,
+    permissions.READ_SMS
+  ];
+
+  permissions.checkPermission(list, (status) => {
+    if (status.hasPermission) {
+      enableSms();
     } else {
-      alert("❌ SMS permissions denied. Please enable them in Settings.");
+      permissions.requestPermissions(list, (status) => {
+        if (status.hasPermission) {
+          enableSms();
+        } else {
+          alert("❌ SMS permissions denied. Please enable them in Settings.");
+        }
+      }, () => {
+        alert("Failed to request permissions.");
+      });
     }
-  } catch (error) {
-    console.error("Permission request failed:", error);
-    alert("Failed to request permissions. Please try again.");
+  }, null);
+
+  function enableSms() {
+    localStorage.setItem("smsEnabled", "true");
+    if (toggle) toggle.checked = true;
+    alert("✅ SMS tracking enabled! Transactions will be added automatically.");
   }
 });
 

@@ -1,6 +1,5 @@
-// js/firebase.js
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -10,7 +9,16 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-const app = initializeApp(firebaseConfig);
+if (!firebaseConfig.apiKey) {
+  console.error("CRITICAL: Firebase Config is missing. Check .env file.");
+}
 
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+console.log("Firebase Initialized Successfully");
+
+// Enable persistence to ensure login session holds across pages
+setPersistence(auth, browserLocalPersistence).catch((error) => {
+  console.error("Persistence persistence error", error);
+});

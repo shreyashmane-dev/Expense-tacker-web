@@ -249,10 +249,19 @@ body { padding-top: 84px; }
 
 <div class="container" style="max-width:420px;margin:48px auto;">
   <h2>Create Account</h2>
-  <input placeholder="Full Name" id="name">
-  <input type="email" placeholder="Email" id="email">
-  <input type="password" placeholder="Password" id="password">
-  <button id="signupBtn">Signup</button>
+  <form id="signup-form">
+    <input type="text" id="name" placeholder="Full Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="number" id="income" placeholder="Monthly Income" required>
+    <select id="role">
+      <option value="Student">Student</option>
+      <option value="Employee">Employee</option>
+      <option value="Business">Business</option>
+    </select>
+    <button type="submit">Signup</button>
+  </form>
+  <p class="link-text">Already have an account? <a href="login.html">Login</a></p>
 </div>
 
 <script type="module" src="auth.js"></script>
