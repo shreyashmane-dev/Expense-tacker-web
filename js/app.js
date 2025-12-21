@@ -51,6 +51,7 @@ onAuthStateChanged(auth, (user) => {
   // We only initialize the dashboard here if authenticated.
   
   if (user) {
+    import("./db.js").then(m => m.syncFromCloud());
     initDashboard();
   }
 });

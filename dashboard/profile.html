@@ -315,6 +315,9 @@ a {
       
       <div class="summary-label" style="margin-top: 16px;">Currency Symbol</div>
       <input type="text" id="profileCurrency" placeholder="₹"/>
+
+      <div class="summary-label" style="margin-top: 16px;">Monthly Savings Goal / Budget (₹)</div>
+      <input type="number" id="profileBudget" placeholder="e.g. 20000"/>
       
       <div class="summary-label" style="margin-top: 16px;">Member Since</div>
       <input type="text" id="profileJoined" readonly style="opacity: 0.6; cursor: not-allowed;"/>
@@ -388,6 +391,7 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("profileCurrency").value = data.currency || "₹";
     document.getElementById("profileJoined").value = data.createdAt ? new Date(data.createdAt).toLocaleDateString('en-IN', {day:'2-digit', month:'long', year:'numeric'}) : "Unknown";
     document.getElementById("profileSmsToggle").checked = data.smsEnabled || false;
+    document.getElementById("profileBudget").value = data.monthlyBudget || "";
     document.getElementById("profileAvatar").textContent = (data.name || "U")[0].toUpperCase();
   }
 
@@ -403,8 +407,11 @@ onAuthStateChanged(auth, async (user) => {
         role: document.getElementById("profileRole").value,
         monthlyIncome: Number(document.getElementById("profileIncome").value),
         currency: document.getElementById("profileCurrency").value,
-        smsEnabled: document.getElementById("profileSmsToggle").checked
+        smsEnabled: document.getElementById("profileSmsToggle").checked,
+        monthlyBudget: Number(document.getElementById("profileBudget").value)
       }, { merge: true });
+      
+      localStorage.setItem("monthlyBudget", document.getElementById("profileBudget").value);
       
       btn.textContent = "Profile Updated! ✓";
       btn.style.background = "#10b981";

@@ -12,6 +12,7 @@ const ASSETS = [
   "/js/firebase.js",
   "/js/auth.js",
   "/js/db.js",
+  "/js/constants.js",
   "/css/main.css",
   "/favicon.png"
 ];

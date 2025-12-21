@@ -369,9 +369,22 @@ a {
         <div style="font-size:13px; color:#64748b;">Expense</div>
         <div id="expense" style="font-size:20px; font-weight:700; margin-top:8px; color:#ef4444;">₹0</div>
       </div>
+      </div>
+    </div>
+
+    <div class="card budget-card" style="margin-bottom:18px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <h3 style="margin-bottom:0; font-size:16px;">Monthly Budget</h3>
+        <span id="budgetStatus" style="font-size:13px; font-weight:600; color:#2563eb;">₹0 / ₹0</span>
+      </div>
+      <div style="width:100%; height:12px; background:#e2e8f0; border-radius:10px; overflow:hidden;">
+        <div id="budgetProgress" style="width:0%; height:100%; background:linear-gradient(90deg, #38bdf8, #2563eb); transition: width 0.5s ease;"></div>
+      </div>
+      <div id="budgetHint" style="font-size:12px; color:#64748b; margin-top:8px;">Set your budget in Profile settings.</div>
     </div>
 
     <div class="grid" style="display:grid; gap:16px;">
+
       <div class="left-col">
         <div class="card add-manual">
           <h3>Add Transaction</h3>
@@ -381,7 +394,19 @@ a {
               <option value="expense">Expense</option>
               <option value="income">Income</option>
             </select>
-            <input type="text" id="category" placeholder="Category (e.g. Food, Salary)" />
+            <select id="category">
+              <option value="Food">🍔 Food</option>
+              <option value="Bills">💡 Bills</option>
+              <option value="Travel">🚗 Travel</option>
+              <option value="Shopping">🛍️ Shopping</option>
+              <option value="Entertainment">🎬 Entertainment</option>
+              <option value="Health">🏥 Health</option>
+              <option value="Education">📚 Education</option>
+              <option value="UPI">📱 UPI</option>
+              <option value="Salary">💰 Salary</option>
+              <option value="Gift">🎁 Gift</option>
+              <option value="Other">📦 Other</option>
+            </select>
             <select id="source">
               <option value="cash">💵 Cash</option>
               <option value="phonepe">📱 PhonePe</option>
@@ -440,20 +465,29 @@ a {
 
 <script type="module">
   import { getAllTransactions } from "../js/transactions.js";
+  import { getCategoryIcon } from "../js/constants.js";
 
-  document.addEventListener('DOMContentLoaded', () => {
-    // Render recent transactions on home
+  function renderRecent() {
     const ul = document.getElementById('transactionsUl');
     if (!ul) return;
     const txns = getAllTransactions();
     if (!txns.length) { ul.innerHTML = '<li class="empty">No transactions yet</li>'; return; }
-    ul.innerHTML = txns.map(t => `
+    ul.innerHTML = txns.slice(0, 10).map(t => `
       <li>
-        <div class="left"><strong>${t.category}</strong><br><small>${t.note||''} • ${t.date}</small></div>
-        <div class="right ${t.type}">${t.type === 'expense' ? '-' : '+'}₹${t.amount}</div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="font-size:24px; width:40px; height:40px; background:#f1f5f9; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+             ${getCategoryIcon(t.category)}
+          </div>
+          <div class="left"><strong>${t.category}</strong><br><small>${t.note||''} • ${t.date}</small></div>
+        </div>
+        <div class="right ${t.type}" style="font-weight:bold;">${t.type === 'expense' ? '-' : '+'}₹${t.amount.toLocaleString()}</div>
       </li>
     `).join('');
-  });
+  }
+
+  document.addEventListener('DOMContentLoaded', renderRecent);
+  window.addEventListener('transactionAdded', renderRecent);
+
 </script>
 
 <!-- app controller + gesture -->

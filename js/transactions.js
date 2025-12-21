@@ -28,9 +28,27 @@ export function addManualTransactionFromUI() {
   };
 
   addTransaction(txn);
-  alert("Transaction Added ✅");
-  location.reload();
+  
+  // Custom alert/feedback
+  const btn = document.getElementById("addTxnBtn");
+  const originalText = btn ? btn.textContent : "Add Transaction";
+  if (btn) {
+    btn.textContent = "Added! ✅";
+    btn.style.background = "#10b981";
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.background = "";
+    }, 2000);
+  }
+
+  // Clear inputs
+  document.getElementById("amount").value = "";
+  document.getElementById("note").value = "";
+
+  // Notify system (app.js and home.js will catch this)
+  window.dispatchEvent(new Event("transactionAdded"));
 }
+
 
 export function calculateSummary() {
   const txns = getTransactions();
