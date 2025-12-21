@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login • Expense Manager</title>
 <link rel="icon" href="data:,">
+<link rel="manifest" href="../manifest.json">
  
 <style>
 /* ======================================================
@@ -258,6 +259,7 @@ body { padding-top: 84px; }
 <body>
 <div class="container" style="max-width:420px;margin:48px auto;">
   <h2>Login</h2>
+  <p id="status" style="text-align: center; font-size: 14px; margin-bottom: 20px; font-weight: 600;"></p>
   <form id="login-form">
     <input type="email" id="email" placeholder="Email" required>
     <input type="password" id="password" placeholder="Password" required>
@@ -272,16 +274,28 @@ body { padding-top: 84px; }
   </div>
 
   <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js");
+    }
+
+    function updateStatus() {
+      const statusEl = document.getElementById("status");
+      if (statusEl) {
+        statusEl.textContent = navigator.onLine
+          ? "🟢 Online"
+          : "🔴 Offline (Login requires internet)";
+        statusEl.style.color = navigator.onLine ? "#10b981" : "#ef4444";
+      }
+    }
+    window.addEventListener("online", updateStatus);
+    window.addEventListener("offline", updateStatus);
+    updateStatus();
+
     // Standalone script to handle skip without relying on modules
     document.getElementById('skipBtn').addEventListener('click', () => {
       sessionStorage.setItem('guest_mode', 'true');
       window.location.href = '../dashboard/home.html';
     });
-
-    // Offline check
-    if (!navigator.onLine) {
-      alert("You are offline. Please connect to internet to login.");
-    }
   </script>
 </div>
 

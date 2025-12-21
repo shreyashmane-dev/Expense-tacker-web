@@ -5,12 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Expense Manager</title>
   <link rel="icon" href="data:,">
+  <link rel="manifest" href="manifest.json">
   <script type="module" crossorigin src="/assets/main-Cd7DCgY2.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/firebase-CCPgoP9_.js">
   <link rel="stylesheet" crossorigin href="/assets/main-DoCF2prP.css">
 </head>
 <body>
   <p>Redirecting...</p>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js");
+    }
+  </script>
 
 </body>
 </html>

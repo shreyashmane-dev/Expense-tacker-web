@@ -159,6 +159,15 @@ window.addEventListener("transactionAdded", () => {
 });
 
 // ===============================
+// SERVICE WORKER REGISTRATION
+// ===============================
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js");
+  });
+}
+
+// ===============================
 // OFFLINE/ONLINE UX (Netlify Safe)
 // ===============================
 window.addEventListener("offline", () => {
