@@ -1,5 +1,5 @@
 import { auth } from "./firebase.js";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
 console.log("Auth Guard: Initializing...");
 

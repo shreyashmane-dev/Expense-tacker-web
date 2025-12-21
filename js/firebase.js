@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+import { getAuth, setPersistence, browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -16,9 +16,10 @@ if (!firebaseConfig.apiKey) {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-console.log("Firebase Initialized Successfully");
 
-// Enable persistence to ensure login session holds across pages
+// Enable persistence globally
 setPersistence(auth, browserLocalPersistence).catch((error) => {
   console.error("Persistence persistence error", error);
 });
+
+console.log("Firebase Initialized (CDN)");
