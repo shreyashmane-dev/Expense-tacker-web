@@ -3,10 +3,12 @@ import { getAuth, setPersistence, browserLocalPersistence, onAuthStateChanged } 
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCgRMz1Fr7eH_HMVaHn7_oJ6m9kErchr_Q",
-  authDomain: "studio-7722428722-420d6.firebaseapp.com",
-  projectId: "studio-7722428722-420d6",
-  appId: "1:313652588619:web:6396d24bb31d84ccacddce"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 if (!firebaseConfig.apiKey) {

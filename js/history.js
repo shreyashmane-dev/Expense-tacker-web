@@ -101,4 +101,3 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // React to changes
 window.addEventListener("transactionAdded", applyFilter);
-

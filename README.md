@@ -18,12 +18,12 @@ This project includes optional Android native code to listen for payment notific
 - Manual enable: The `BIND_NOTIFICATION_LISTENER_SERVICE` permission cannot be auto-granted. Instruct users to enable Notification Access: Settings → Apps & notifications → Special app access → Notification access → Enable "Expense Manager".
 - Privacy: Only payment notification text is parsed on-device; no data is sent to external servers by the native listener.
 
-Play Store considerations
+## Play Store considerations
 
 - Internal testing / personal APK: Allowed.
 - Public Play Store: You may need Google approval if the permission is sensitive or the app's primary purpose is not clearly related to notifications/SMS. Provide clear disclosure, in-app explanation, and a privacy policy when submitting.
 
-Testing steps (quick)
+## Testing steps (quick)
 
 1. Build an internal APK and install on your test device.
 2. Open Settings → Apps & notifications → Special app access → Notification access and enable access for the app.
