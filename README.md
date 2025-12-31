@@ -1,33 +1,157 @@
-# Expense Manager
+💻 Expense Tracker – Web Application
 
-A comprehensive expense management application with SMS handling and AI-driven insights.
+A functional Expense Tracker web application designed to manage daily expenses with dashboards, insights, and user flows.
 
-## Project Structure
+This project focuses on real functionality, clean UI, and proof-based development — not just static pages.
 
-- `public/`: Static assets and entry point.
-- `auth/`: Authentication pages and logic.
-- `dashboard/`: Application pages.
-- `js/`: Core business logic and services.
-- `css/`: Styling.
+🚀 Overview
 
-## Android notification & Play Store guidance
+The Expense Tracker Web App helps users:
 
-This project includes optional Android native code to listen for payment notifications (PhonePe / GPay) and forward them to the WebView. Important notes:
+Track daily expenses
 
-- Permission: You must declare `android.permission.BIND_NOTIFICATION_LISTENER_SERVICE` in `android/app/src/main/AndroidManifest.xml` and register a `NotificationListenerService` (the user must enable it manually in Settings).
-- Manual enable: The `BIND_NOTIFICATION_LISTENER_SERVICE` permission cannot be auto-granted. Instruct users to enable Notification Access: Settings → Apps & notifications → Special app access → Notification access → Enable "Expense Manager".
-- Privacy: Only payment notification text is parsed on-device; no data is sent to external servers by the native listener.
+View expense history
 
-## Play Store considerations
+Analyze spending through charts & insights
 
-- Internal testing / personal APK: Allowed.
-- Public Play Store: You may need Google approval if the permission is sensitive or the app's primary purpose is not clearly related to notifications/SMS. Provide clear disclosure, in-app explanation, and a privacy policy when submitting.
+This web version also serves as the base project for conversion into an Android app using Capacitor.
 
-## Testing steps (quick)
+✨ Features
 
-1. Build an internal APK and install on your test device.
-2. Open Settings → Apps & notifications → Special app access → Notification access and enable access for the app.
-3. Send a payment notification (or use the app's SMS/Notification simulators in `dashboard/home.html`) to verify imports.
-4. Check the debug logcat for messages coming from `SmsReceiver` and `PayNotificationListener` and confirm the WebView receives `smsReceived` or `notificationReceived` events.
+Add and manage daily expenses
 
-If you plan to publish on Play Store, include a clear privacy policy and explain why notification access is required.
+Interactive dashboard view
+
+Expense history tab
+
+Charts & spending insights
+
+User login screen
+
+Profile screen
+
+Clean, modular UI
+
+🧩 Use Cases
+
+Personal expense management
+
+Student budgeting
+
+Learning frontend development
+
+Base project for web → mobile conversion
+
+🛠 Tech Stack
+
+HTML
+
+CSS
+
+JavaScript
+
+Vite
+
+Netlify (deployment)
+
+▶️ Usage
+
+Run the project locally:
+
+npm install
+npm run dev
+
+
+Open in browser:
+
+http://localhost:5173
+
+🧪 Project Structure
+assets/
+auth/
+css/
+dashboard/
+js/
+public/
+screenshots/
+
+
+The project is structured for clarity and easy scalability.
+
+📸 Screenshots (Web App – Real Implementation)
+
+All screenshots are captured from the running web application
+and stored in the /screenshots folder.
+
+📊 Dashboard & Insights
+<p align="center"> <img src="./screenshots/Dashboard.jpeg" width="30%" /> <img src="./screenshots/charts.jpeg" width="30%" /> <img src="./screenshots/insights.jpeg" width="30%" /> </p>
+📑 Expense History & Login
+<p align="center"> <img src="./screenshots/history-tab.jpeg" width="30%" /> <img src="./screenshots/login-page.jpeg" width="30%" /> </p>
+👤 Profile
+<p align="center"> <img src="./screenshots/profile.jpeg" width="30%" /> </p>
+
+✅ Why screenshots render correctly
+
+Correct relative paths: ./screenshots/...
+
+Exact file names (case-sensitive)
+
+GitHub-compatible Markdown
+
+🌐 Live Demo
+
+🔗https://expense-tracker-v181.netlify.app
+
+🔗 Related Project
+
+📱 Android App (Capacitor): Expense-tacker-capacitor-app
+
+This web project is the core codebase used for Android conversion.
+
+🧠 What This Project Demonstrates
+
+Real frontend implementation
+
+Dashboard-style UI development
+
+Data visualization basics
+
+Modular JavaScript structure
+
+Documentation with execution proof
+
+🔮 Future Improvements
+
+Firebase authentication
+
+Cloud data sync
+
+Expense categories
+
+Improved analytics
+
+UI/UX refinements
+
+⭐ Support
+
+If you find this project useful:
+
+⭐ Star the repository
+
+🍴 Fork it
+
+💬 Share suggestions
+
+📄 License
+
+MIT License
+
+👤 Author
+
+Shreyash Mane
+CSE First-Year Student
+Web & App Developer
+
+GitHub: https://github.com/shreyashmane-dev
+
+LinkedIn: https://www.linkedin.com/in/shreyash-mane-7675a4385
